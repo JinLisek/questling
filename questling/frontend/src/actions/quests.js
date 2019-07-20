@@ -1,6 +1,8 @@
 import axios from "axios";
 
-import { GET_QUESTS, DELETE_QUEST, ADD_QUEST } from "./types";
+import { createMessage } from "./messages";
+
+import { GET_QUESTS, DELETE_QUEST, ADD_QUEST, GET_ERRORS } from "./types";
 
 export const getQuests = () => dispatch => {
   axios
@@ -18,6 +20,7 @@ export const deleteQuest = id => dispatch => {
   axios
     .delete(`/api/quests/${id}`)
     .then(resp => {
+      dispatch(createMessage({ deleteQuest: "Quest deleted" }));
       dispatch({
         type: DELETE_QUEST,
         payload: id
@@ -26,14 +29,25 @@ export const deleteQuest = id => dispatch => {
     .catch(err => console.log(err));
 };
 
-export const addQuest = (quest) => dispatch => {
+export const addQuest = quest => dispatch => {
   axios
     .post("/api/quests/", quest)
     .then(resp => {
+      dispatch(createMessage({ addQuest: "Quest added" }));
       dispatch({
         type: ADD_QUEST,
         payload: resp.data
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const errors = {
+        msg: err.response.data,
+        status: err.response.status
+      };
+
+      dispatch({
+        type: GET_ERRORS,
+        payload: errors
+      });
+    });
 };
