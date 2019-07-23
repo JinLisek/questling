@@ -1,8 +1,8 @@
 import axios from "axios";
 
-import { createMessage } from "./messages";
+import { createMessage, returnErrors } from "./messages";
 
-import { GET_QUESTS, DELETE_QUEST, ADD_QUEST, GET_ERRORS } from "./types";
+import { GET_QUESTS, DELETE_QUEST, ADD_QUEST } from "./types";
 
 export const getQuests = () => dispatch => {
   axios
@@ -13,7 +13,9 @@ export const getQuests = () => dispatch => {
         payload: resp.data
       });
     })
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 export const deleteQuest = id => dispatch => {
@@ -39,15 +41,7 @@ export const addQuest = quest => dispatch => {
         payload: resp.data
       });
     })
-    .catch(err => {
-      const errors = {
-        msg: err.response.data,
-        status: err.response.status
-      };
-
-      dispatch({
-        type: GET_ERRORS,
-        payload: errors
-      });
-    });
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
