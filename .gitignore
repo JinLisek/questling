@@ -82,7 +82,7 @@ coverage.xml
 *.log
 
 # Sphinx documentation
-docs/_build/
+docs/_build/questling/frontend/static/frontend/main.js
 
 # PyBuilder
 target/
@@ -244,4 +244,5 @@ typings/
 # dotenv environment variables file
 .env
 
-
+# static main.js built by webpack
+questling/frontend/static/frontend/main.js
