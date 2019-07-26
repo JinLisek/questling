@@ -17,11 +17,18 @@ export class Alerts extends Component {
       if (errors.msg.author) alert.error(`Author: ${errors.msg.author.join()}`);
       if (errors.msg.description)
         alert.error(`Description: ${errors.msg.description.join()}`);
+      if (errors.msg.username)
+        alert.error(`Username: ${errors.msg.username.join()}`);
+      if (errors.msg.password)
+        alert.error(`Password: ${errors.msg.password.join()}`);
+      if (errors.msg.non_field_errors)
+        alert.error(errors.msg.non_field_errors.join());
     }
 
     if (messages !== previousProps.messages) {
       if (messages.deleteQuest) alert.success(messages.deleteQuest);
       if (messages.addQuest) alert.success(messages.addQuest);
+      if (messages.passwordsDontMatch) alert.error(messages.passwordsDontMatch);
     }
   }
 

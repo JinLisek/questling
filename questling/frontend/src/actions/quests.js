@@ -1,12 +1,12 @@
 import axios from "axios";
 
 import { createMessage, returnErrors } from "./messages";
-
 import { GET_QUESTS, DELETE_QUEST, ADD_QUEST } from "./types";
+import { tokenConfig } from "./AuthenticationActions";
 
-export const getQuests = () => dispatch => {
+export const getQuests = () => (dispatch, getState) => {
   axios
-    .get("/api/quests/")
+    .get("/api/quests/", tokenConfig(getState))
     .then(resp => {
       dispatch({
         type: GET_QUESTS,
@@ -18,9 +18,9 @@ export const getQuests = () => dispatch => {
     );
 };
 
-export const deleteQuest = id => dispatch => {
+export const deleteQuest = id => (dispatch, getState) => {
   axios
-    .delete(`/api/quests/${id}`)
+    .delete(`/api/quests/${id}`, tokenConfig(getState))
     .then(resp => {
       dispatch(createMessage({ deleteQuest: "Quest deleted" }));
       dispatch({
@@ -31,9 +31,9 @@ export const deleteQuest = id => dispatch => {
     .catch(err => console.log(err));
 };
 
-export const addQuest = quest => dispatch => {
+export const addQuest = quest => (dispatch, getState) => {
   axios
-    .post("/api/quests/", quest)
+    .post("/api/quests/", quest, tokenConfig(getState))
     .then(resp => {
       dispatch(createMessage({ addQuest: "Quest added" }));
       dispatch({

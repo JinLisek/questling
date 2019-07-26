@@ -6,8 +6,7 @@ import { addQuest } from "../../actions/quests";
 export class Form extends Component {
   state = {
     header: "",
-    description: "",
-    author: ""
+    description: ""
   };
 
   static propTypes = {
@@ -19,18 +18,17 @@ export class Form extends Component {
 
   onSubmit = event => {
     event.preventDefault();
-    const { header, description, author } = this.state;
-    const quest = { header, description, author };
+    const { header, description } = this.state;
+    const quest = { header, description };
     this.props.addQuest(quest);
     this.setState({
       header: "",
-      description: "",
-      author: ""
+      description: ""
     });
   };
 
   render() {
-    const { header, description, author } = this.state;
+    const { header, description } = this.state;
 
     return (
       <div className="card card-body mt-4 mb-4">
@@ -55,17 +53,6 @@ export class Form extends Component {
               name="description"
               onChange={this.onChange}
               value={description}
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Author</label>
-            <input
-              className="form-control"
-              type="text"
-              name="author"
-              onChange={this.onChange}
-              value={author}
             />
           </div>
 
