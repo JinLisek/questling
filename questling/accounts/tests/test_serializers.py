@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.db.utils import IntegrityError
-from accounts.serializers import RegisterSerializer, User
+from rest_framework.serializers import ValidationError
+from accounts.serializers import LoginSerializer, RegisterSerializer, User
 
 
 class RegisterSerializerTests(TestCase):
@@ -55,6 +56,7 @@ class RegisterSerializerTests(TestCase):
     def test_that_create_throws_exception_when_duplicate_username_is_given(self):
         self.second_user["username"] = self.user["username"]
         RegisterSerializer().create(self.user)
+
         with self.assertRaises(IntegrityError):
             RegisterSerializer().create(self.second_user)
 
@@ -65,3 +67,28 @@ class RegisterSerializerTests(TestCase):
     #     with self.assertRaises(IntegrityError):
     #         RegisterSerializer().create(self.second_user)
 
+
+class LoginSerializerTests(TestCase):
+    def setUp(self):
+        self.user = {"username": "Bob", "email": "bob@gmail.com", "password": "bob123"}
+
+    def test_given_registered_user_when_credentials_are_correct_validate_should_login_user(
+        self
+    ):
+        RegisterSerializer().create(self.user)
+
+        logged_user = LoginSerializer().validate(self.user)
+        self.assertEqual(logged_user, User.objects.first())
+
+    def test_given_no_registered_users_login_should_fail(self):
+        with self.assertRaisesRegex(ValidationError, "Incorrect credentials"):
+            LoginSerializer().validate(self.user)
+
+    # TODO: if user is inactive the raised error should be different than incorrect credentials
+    def test_given_inactive_user_login_should_fail(self):
+        user = RegisterSerializer().create(self.user)
+        user.is_active = False
+        user.save()
+
+        with self.assertRaisesRegex(ValidationError, "Incorrect credentials"):
+            LoginSerializer().validate(self.user)
