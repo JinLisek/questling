@@ -3,10 +3,6 @@ from django.db.utils import IntegrityError
 from accounts.serializers import RegisterSerializer, User
 
 
-def get_num_of_created_users():
-    return User.objects.all().count()
-
-
 class RegisterSerializerTests(TestCase):
     def setUp(self):
         self.user = {"username": "Bob", "email": "bob@gmail.com", "password": "bob123"}
@@ -17,17 +13,17 @@ class RegisterSerializerTests(TestCase):
         }
 
     def test_that_users_are_empty_before_create(self):
-        self.assertEqual(get_num_of_created_users(), 0)
+        self.assertEqual(User.objects.all().count(), 0)
 
     def test_that_create_adds_new_user(self):
         RegisterSerializer().create(self.user)
-        self.assertEqual(get_num_of_created_users(), 1)
+        self.assertEqual(User.objects.all().count(), 1)
 
     def test_that_create_can_add_multiple_users(self):
         RegisterSerializer().create(self.user)
         RegisterSerializer().create(self.second_user)
 
-        self.assertEqual(get_num_of_created_users(), 2)
+        self.assertEqual(User.objects.all().count(), 2)
 
     def test_that_created_user_is_instance_of_user_class(self):
         returned_user_object = RegisterSerializer().create(self.user)
