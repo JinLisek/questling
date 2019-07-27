@@ -4,6 +4,7 @@ from .serializers import QuestSerializer
 
 
 class QuestViewSet(viewsets.ModelViewSet):
+    # queryset = Quest.objects.all()
     permission_classes = [permissions.IsAuthenticated]
 
     serializer_class = QuestSerializer
