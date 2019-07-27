@@ -1,5 +1,7 @@
 dist: xenial
-language: python
+language:
+  - python
+  - node_js
 python:
   - "3.7.3"
 script:
