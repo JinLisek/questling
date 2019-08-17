@@ -1,6 +1,5 @@
 [![Build Status](https://travis-ci.com/JinLisek/questling.svg?branch=master)](https://travis-ci.com/JinLisek/questling)
-[![Coverage Status](https://coveralls.io/repos/github/JinLisek/questling/badge.svg?branch=master)](https://coveralls.io/github/JinLisek/questling?branch=master)
-
+[![Coverage Status](https://coveralls.io/repos/github/JinLisek/questling/badge.svg?branch=master&service=github)](https://coveralls.io/github/JinLisek/questling?branch=master)
 # questling
 
 1. `git clone git@github.com:JinLisek/questling.git`
