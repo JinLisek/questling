@@ -6,7 +6,8 @@ matrix:
       install:
         - pip install -r requirements.txt
         - pip install coveralls
-      script: cd questling && python manage.py test --parallel
+      before_script: cd questling
+      script: coverage run --source='.' manage.py test --parallel
       after_success: coveralls
     - language: node_js
       node_js: "11.15.0"
