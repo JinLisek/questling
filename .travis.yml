@@ -3,6 +3,6 @@ matrix:
   include:
     - language: python
       python: "3.7.3"
-      script: cd questling && coverage run --source='.' manage.py test && coverage report
+      script: cd questling && coverage run --source='.' manage.py test --parallel && coverage report
     - language: node_js
       node_js: "11.15.0"
