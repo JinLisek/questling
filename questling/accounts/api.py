@@ -4,7 +4,6 @@ from knox.models import AuthToken
 from .serializers import UserSerializer, RegisterSerializer, LoginSerializer
 
 
-
 class RegisterApi(generics.GenericAPIView):
     serializer_class = RegisterSerializer
 
@@ -51,4 +50,3 @@ class UserApi(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
-

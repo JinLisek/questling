@@ -9,4 +9,3 @@ urlpatterns = [
     path("api/auth/user", UserApi.as_view()),
     path("api/auth/logout", knox_views.LogoutView.as_view(), name="knox_logout"),
 ]
-

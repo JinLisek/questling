@@ -34,4 +34,3 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError("Incorrect credentials")
 
         return user
-
