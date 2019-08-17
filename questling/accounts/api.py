@@ -4,6 +4,7 @@ from knox.models import AuthToken
 from .serializers import UserSerializer, RegisterSerializer, LoginSerializer
 
 
+
 class RegisterApi(generics.GenericAPIView):
     serializer_class = RegisterSerializer
 
