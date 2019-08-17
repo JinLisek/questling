@@ -4,8 +4,8 @@ matrix:
     - language: python
       python: "3.7.3"
       install:
-        - pip install -r requirements.txt --use-mirrors
-        - pip install coveralls --use-mirrors
+        - pip install -r requirements.txt
+        - pip install coveralls
       script: cd questling && python manage.py test --parallel
       after_success: coveralls
     - language: node_js
